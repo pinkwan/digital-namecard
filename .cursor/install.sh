@@ -10,8 +10,8 @@ if ! command -v xero >/dev/null 2>&1; then
   npm install -g @xeroapi/xero-command-line --prefix /home/ubuntu/.local
 fi
 
-# Create profile from secrets when tokens are not yet cached
-if [[ -n "${XERO_CLIENT_ID:-}" ]] && [[ ! -f /home/ubuntu/.config/xero-command-line/tokens.json ]]; then
+# Ensure profile exists from secrets (needed for token refresh after snapshot restore)
+if [[ -n "${XERO_CLIENT_ID:-}" ]]; then
   xero profile add "${XERO_PROFILE}" --client-id "${XERO_CLIENT_ID}" -f >/dev/null 2>&1 || true
 fi
 
